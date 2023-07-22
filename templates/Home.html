@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Mdbootstrap/css/mdb.min.css'%}"/>
+    <link rel="stylesheet" type='text/css' href="{% static 'css/style.css'%}"/>
+    <title>Image Gallery</title>
+</head>
+<body>
+  <div class="container">
+  <div class="d-flex align-items-center justify-content-center mt-4 pb-3">
+    <form method='POST' action='.' enctype="multipart/form-data" class="form">
+      {% csrf_token %}
+      {{form.photo}}
+      <input type="submit" name="submit"/>
+    </form>
+  </div>
+</div>
+{% if photos %}
+<div class='img-grid'>
+  {% for photo in photos %}
+  <img src="{{photo.photo.url}}" id='image' class='image w-100 img-thumbnail img-fluid rounded hover-shadow'/>
+  {% endfor %}  
+  </div>
+  {% else %}
+  <div class="d-flex align-items-center justify-content-center pt-5 h2 mt-5">
+  <p>Your Image Uploader IsEmpty Please Tap The 'Choose File' button to add Image</p>  
+  </div>
+{% endif %}
+  <script src='{% static 'Mdbootstrap/js/mdb.min.js'%}'></script>
+</body>
+</html>
